@@ -1,4 +1,5 @@
 def count_numbers(which: str, numbers: list[int]) -> int:
+    """Given a list of integer numbers, return how many odd or even numbers are there based on number type."""
     # Your code goes here
     count = 0
     if which.lower() == "even":
