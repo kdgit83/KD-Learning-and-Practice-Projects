@@ -4,9 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/LinkedinLearning.iml" filepath="$PROJECT_DIR$/.idea/LinkedinLearning.iml" />
       <module fileurl="file://$PROJECT_DIR$/../Udemy/.idea/Udemy.iml" filepath="$PROJECT_DIR$/../Udemy/.idea/Udemy.iml" />
-      <module fileurl="file://$PROJECT_DIR$/../py_data/.idea/py_data.iml" filepath="$PROJECT_DIR$/../py_data/.idea/py_data.iml" />
       <module fileurl="file://$PROJECT_DIR$/../py_locals/.idea/py_locals.iml" filepath="$PROJECT_DIR$/../py_locals/.idea/py_locals.iml" />
-      <module fileurl="file://$PROJECT_DIR$/../py_tests/.idea/py_tests.iml" filepath="$PROJECT_DIR$/../py_tests/.idea/py_tests.iml" />
       <module fileurl="file://$PROJECT_DIR$/../py_webs/.idea/py_webs.iml" filepath="$PROJECT_DIR$/../py_webs/.idea/py_webs.iml" />
     </modules>
   </component>
