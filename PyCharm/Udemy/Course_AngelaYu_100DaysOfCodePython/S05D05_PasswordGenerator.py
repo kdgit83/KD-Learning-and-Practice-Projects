@@ -26,7 +26,6 @@ while True:
         break
     else:
         print(f"Too long count. Limit within {len(all_lower_letters)} chars.")
-        continue
 
 while True:
     nr_upper_letters = int(input("How many uppercase letters would you like in your password?\n==> "))
@@ -34,7 +33,6 @@ while True:
         break
     else:
         print(f"Too long count. Limit within {len(all_upper_letters)} chars.")
-        continue
 
 while True:
     nr_digits = int(input("How many numbers would you like in your password?\n==> "))
@@ -42,14 +40,13 @@ while True:
         break
     else:
         print(f"Too long count. Limit within {len(all_digits)} chars.")
-        continue
+
 while True:
     nr_punctuations = int(input("How many symbols would you like in your password?\n==> "))
     if nr_punctuations <= len(all_punctuations):
         break
     else:
         print(f"Too long count. Limit within {len(all_punctuations)} chars.")
-        continue
 
 password_ingredient_count = [nr_lower_letters, nr_upper_letters, nr_digits, nr_punctuations]
 password_chars = []
