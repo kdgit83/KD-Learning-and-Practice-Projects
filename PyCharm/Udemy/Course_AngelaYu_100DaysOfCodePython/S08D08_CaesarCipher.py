@@ -8,42 +8,61 @@ alpha_count = len(alphabets)
 
 def caeser(start_text: str, shift_amount: int, cipher_direction: str) -> None:
     end_text = ""
+    char_is_upper = False
     for char in start_text:
-        if char not in alphabets:
-            end_text += char
-        else:
+        if char.isupper():
+            char_is_upper = True
+            char = char.lower()
+        if char in alphabets:
             position = alphabets.index(char)
-            if cipher_direction == "d" or cipher_direction == "decode":
+            if cipher_direction in ["d", "decode"]:
                 cipher_direction = "decode"
                 if (position - shift_amount) >= 0:
-                    new_position = position - shift_amount
-                    new_letter = alphabets[new_position]
-                    end_text += new_letter
+                    if char_is_upper:
+                        end_text += alphabets[position - shift_amount].upper()
+                    else:
+                        end_text += alphabets[position - shift_amount]
                 elif (position - shift_amount) < 0:
-                    new_position = position - shift_amount + alpha_count
-                    new_letter = alphabets[new_position]
-                    end_text += new_letter
-            elif cipher_direction == "e" or cipher_direction == "encode":
+                    if char_is_upper:
+                        end_text += alphabets[position - shift_amount + alpha_count].upper()
+                    else:
+                        end_text += alphabets[position - shift_amount + alpha_count]
+            elif cipher_direction in ["e", "encode"]:
                 cipher_direction = "encode"
                 if (position + shift_amount) <= alpha_count - 1:
-                    new_position = position + shift_amount
-                    new_letter = alphabets[new_position]
-                    end_text += new_letter
+                    if char_is_upper:
+                        end_text += alphabets[position + shift_amount].upper()
+                    else:
+                        end_text += alphabets[position + shift_amount]
                 elif (position + shift_amount) > alpha_count - 1:
-                    new_position = position + shift_amount - alpha_count
-                    new_letter = alphabets[new_position]
-                    end_text += new_letter
+                    if char_is_upper:
+                        end_text += alphabets[position + shift_amount - alpha_count].upper()
+                    else:
+                        end_text += alphabets[position + shift_amount - alpha_count]
+        else:
+            end_text += char
+        char_is_upper = False
+
     print(f"The {cipher_direction}d text is: {end_text}")
 
 
 while True:
-    direction = input("Type 'e' or 'encode' to Encrypt, type 'd' or 'decode' to Decrypt:\n").lower()
-    text = input("Type your message:\n").lower()
-    shift = int(input("Type the shift number, a positive integer number:\n"))
-    shift = shift % 26
+    direction = input("Type letter either 'e' to Encrypt or 'd' to Decrypt:\n===> ").lower()
+    if direction == '0':
+        break
+    if direction not in ['e', 'encode', 'd', 'decode']:
+        continue
+    text = input("\nType your message:\n")
+    while True:
+        shift = input("\nType the shift number, a positive integer number:\n")
+        if shift.isnumeric():
+            break
+        else:
+            continue
+    shift = int(shift) % alpha_count
     caeser(start_text=text, shift_amount=shift, cipher_direction=direction)
 
-    restart = input("Type 'yes' if you want to go again. Otherwise type 'no'.\n")
-    if restart == "no":
+    restart = input("\nPress '0' to exit the program.\n")
+    if restart == '0':
         print("Goodbye!!")
         break
