@@ -1,3 +1,6 @@
+"""Band Name Generator - Creates a band name from user's city and pet."""
+
+
 def main():
     """Generate a band name based on user's city and pet."""
     print("Welcome to the Band Name Generator.\n")
