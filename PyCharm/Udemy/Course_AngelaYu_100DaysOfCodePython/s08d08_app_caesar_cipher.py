@@ -7,9 +7,9 @@ uppercase and lowercase characters, preserving their case during the transformat
 and leaves non-alphabetic characters unchanged. The program runs in a loop, allowing
 multiple encryption or decryption until the user decides to exit.
 """
-from utilities.caesarcipher_art import logo
+from typing import Optional
 
-print(logo)
+from utilities.caesarcipher_art import logo  # pylint: disable=import-error
 
 def shift_character(char: str, shift_amount: int) -> str:
     """
@@ -32,7 +32,7 @@ def shift_character(char: str, shift_amount: int) -> str:
     return chr(start + shifted)
 
 
-def caeser(original_text: str, shift_amount: int, cipher_direction: str) -> None:
+def caesar_cipher(original_text: str, shift_amount: int, cipher_direction: str) -> str:
     """
     Encodes or decodes a given text using a Caesar cipher.
 
@@ -48,22 +48,20 @@ def caeser(original_text: str, shift_amount: int, cipher_direction: str) -> None
                               "decode"/"d" (shift backward).
 
     Returns:
-        None
+        str: Transformed text.
     """
-    # Negate shift amount for decode operation
-    if cipher_direction in ["d", "decode"]:
+    normalized_direction = cipher_direction.lower()
+    if normalized_direction in {"d", "decode"}:
         shift_amount = -shift_amount
-        cipher_direction = "decode"
-    else:
-        cipher_direction = "encode"
+    elif normalized_direction not in {"e", "encode"}:
+        raise ValueError("cipher_direction must be 'e'/'encode' or 'd'/'decode'.")
 
     # Apply Caesar cipher to each character
     output_text = "".join(shift_character(char, shift_amount) for char in original_text)
+    return output_text
 
-    print(f"The {cipher_direction}d result is: {output_text}")
 
-
-def get_valid_direction() -> str:
+def get_valid_direction() -> Optional[str]:
     """Get and validate cipher direction from user."""
     valid_directions = {'e', 'encode', 'd', 'decode'}
     while True:
@@ -89,6 +87,8 @@ def get_valid_shift() -> int:
 
 def main() -> None:
     """Main program loop."""
+    print(logo)
+
     while True:
         direction = get_valid_direction()
         if direction is None:
@@ -98,9 +98,21 @@ def main() -> None:
         text = input("\nType your message:\n")
         shift = get_valid_shift()
 
-        caeser(original_text=text, shift_amount=shift, cipher_direction=direction)
+        output_text = caesar_cipher(
+            original_text=text,
+            shift_amount=shift,
+            cipher_direction=direction,
+        )
 
-        if input("\nPress '0' to exit the program.\n") == '0':
+        action = "decode" if direction in {"d", "decode"} else "encode"
+        print(f"The {action}d result is: {output_text}")
+
+        if (
+            input("\nDo you want to continue? Type N or No to exit.\n")
+            .strip()
+            .lower()
+            in {"n", "no"}
+        ):
             print("Goodbye!!")
             break
 
